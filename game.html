@@ -72,46 +72,56 @@
     <button id="nextBtn" onclick="loadGame()">Next</button>
   </div>
 
-  <script>
-    let currentCorrect = null;
-    let currentExplanation = "";
+<script>
+  let currentCorrect = null;
+  let currentExplanation = "";
+  let currentHint = "";
+  let attempt = 0;
 
-    async function loadGame() {
-      document.getElementById('feedback').innerText = "";
-      document.getElementById('explanation').innerText = "";
-      document.getElementById('nextBtn').style.display = 'none';
+  async function loadGame() {
+    document.getElementById('feedback').innerText = "";
+    document.getElementById('explanation').innerText = "";
+    document.getElementById('nextBtn').style.display = 'none';
+    attempt = 0;
 
-      const res = await fetch('http://localhost:5000/api/get-game');
-      const data = await res.json();
+    const res = await fetch('http://localhost:5000/api/get-game');
+    const data = await res.json();
 
-      document.getElementById('sentence').innerText = data.sentence;
-      currentCorrect = data.correct;
-      currentExplanation = data.explanation;
+    document.getElementById('sentence').innerText = data.sentence;
+    currentCorrect = data.correct;
+    currentExplanation = data.explanation;
+    currentHint = data.hint;
 
-      const optionsContainer = document.getElementById('options');
-      optionsContainer.innerHTML = "";
+    const optionsContainer = document.getElementById('options');
+    optionsContainer.innerHTML = "";
 
-      data.options.forEach((opt, i) => {
-        const btn = document.createElement('button');
-        btn.innerText = opt;
-        btn.onclick = () => handleChoice(opt);
-        optionsContainer.appendChild(btn);
-      });
-    }
+    data.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.innerText = opt;
+      btn.onclick = () => handleChoice(opt);
+      optionsContainer.appendChild(btn);
+    });
+  }
 
-    function handleChoice(choice) {
-      const feedback = document.getElementById('feedback');
-      const explanation = document.getElementById('explanation');
-      if (choice === currentCorrect) {
-        feedback.innerText = "✅ Correct!";
-        explanation.innerText = currentExplanation;
-        document.getElementById('nextBtn').style.display = 'inline-block';
-      } else {
-        feedback.innerText = `❌ Wrong! Try again.`;
+  function handleChoice(choice) {
+    const feedback = document.getElementById('feedback');
+    const explanation = document.getElementById('explanation');
+    attempt++;
+
+    if (choice === currentCorrect) {
+      feedback.innerText = "✅ Correct!";
+      explanation.innerText = currentExplanation;
+      document.getElementById('nextBtn').style.display = 'inline-block';
+    } else {
+      feedback.innerText = "❌ Wrong! Try again.";
+      if (attempt === 1 && currentHint) {
+        explanation.innerText = currentHint;
       }
     }
+  }
 
-    window.onload = loadGame;
-  </script>
+  window.onload = loadGame;
+</script>
+
 </body>
 </html>
