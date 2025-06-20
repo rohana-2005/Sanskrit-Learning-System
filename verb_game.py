@@ -17,10 +17,19 @@ def extract_subject(sentence):
 def extract_verb(sentence):
     return sentence.split()[-1]
 
-def replace_verb_with_blank(sentence):
-    parts = sentence.split()
-    parts[-1] = ""
+def replace_verb_with_blank(sentence_dict):
+    sentence_text = sentence_dict["sentence"]
+    verb_form = sentence_dict["verb"]["form"]
+    parts = sentence_text.split()
+
+    if verb_form in parts:
+        parts[parts.index(verb_form)] = "____"
+    else:
+        parts[-1] = "____"
+
     return " ".join(parts)
+
+
 
 def detect_person_number_from_subject(subject):
     decl_sources = {
@@ -139,21 +148,16 @@ def play_game():
 @app.route('/api/get-game')
 def get_game():
     sentence = random.choice(sentences)
-    correct_verb = extract_verb(sentence)
-    subject = extract_subject(sentence)
+    correct_verb = sentence["verb"]["form"]
+    subject_form = sentence["subject"]["form"]
     base_sentence = replace_verb_with_blank(sentence)
 
-    matching_verb = None
-    for v in verbs:
-        if correct_verb.startswith(v["root"][:-1]):
-            matching_verb = v
-            break
-    if not matching_verb:
-        return jsonify({"error": "Verb root not found!"}), 500
+    verb_root = sentence["verb"]["root"]
+    verb_class = sentence["verb"]["class"]
+    verb_meaning = sentence["verb"].get("meaning", "N/A")
+    subj_person = sentence["subject"]["person"]
+    subj_number = sentence["subject"]["number"]
 
-    verb_root = matching_verb["root"]
-    verb_class = matching_verb["verb_class"]
-    subj_person, subj_number = detect_person_number_from_subject(subject)
     key = f"{subj_person}_{subj_number}"
     suffix = conjugations[verb_class][key]
     stem = verb_root[:-1] if verb_root.endswith("्") else verb_root
@@ -166,15 +170,14 @@ def get_game():
     options = [opt for opt, _, _ in distractors]
 
     explanation = (
-        f"The subject '{subject}' is in {label(subj_person, subj_number).lower()} form. "
-        f"The verb root is '{verb_root}', which belongs to class {verb_class} and means '{matching_verb.get('meaning', 'N/A')}'. "
-        + ("This verb requires an object. " if matching_verb.get("requires_object") else "This verb does not require an object. ")
-        + f"It can take subjects of type: {', '.join(matching_verb.get('allowed_subject_class', []))}. "
-        f"The correct verb form is '{correct_option}' to match the subject. "
-        f"The full sentence is: {sentence}"
+        f"The subject '{subject_form}' is in {label(subj_person, subj_number).lower()} form. "
+        f"The verb root is '{verb_root}', which belongs to class {verb_class} and means '{verb_meaning}'. "
+        + ("This verb requires an object. " if sentence["object"] else "This verb does not require an object. ")
+        + f"The correct verb form is '{correct_option}' to match the subject. "
+        f"The full sentence is: {sentence['sentence']}"
     )
 
-    hint = f"Hint: Subject '{subject}' is {label(subj_person, subj_number)}."
+    hint = f"Hint: Subject '{subject_form}' is {label(subj_person, subj_number)}."
 
     return jsonify({
         "sentence": base_sentence,
@@ -183,6 +186,7 @@ def get_game():
         "explanation": explanation,
         "hint": hint
     })
+
 
 # Run
 if __name__ == "__main__":
