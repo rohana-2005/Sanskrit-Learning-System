@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sanskrit Verb Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2em;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .sentence {
+      font-size: 1.5em;
+      margin: 1em 0;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 0.5em 0;
+      padding: 1em;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .options button:hover {
+      background-color: #e0e0e0;
+    }
+    .feedback {
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    .explanation {
+      margin-top: 1em;
+      background-color: #eef;
+      padding: 1em;
+      border-radius: 4px;
+    }
+    #nextBtn {
+      margin-top: 1.5em;
+      padding: 0.8em 2em;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      font-size: 1em;
+      border-radius: 4px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Sanskrit Verb Form Game</h1>
+    <div class="sentence" id="sentence"></div>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="explanation" id="explanation"></div>
+    <button id="nextBtn" onclick="loadGame()">Next</button>
+  </div>
+
+  <script>
+    let currentCorrect = null;
+    let currentExplanation = "";
+
+    async function loadGame() {
+      document.getElementById('feedback').innerText = "";
+      document.getElementById('explanation').innerText = "";
+      document.getElementById('nextBtn').style.display = 'none';
+
+      const res = await fetch('http://localhost:5000/api/get-game');
+      const data = await res.json();
+
+      document.getElementById('sentence').innerText = data.sentence;
+      currentCorrect = data.correct;
+      currentExplanation = data.explanation;
+
+      const optionsContainer = document.getElementById('options');
+      optionsContainer.innerHTML = "";
+
+      data.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.innerText = opt;
+        btn.onclick = () => handleChoice(opt);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function handleChoice(choice) {
+      const feedback = document.getElementById('feedback');
+      const explanation = document.getElementById('explanation');
+      if (choice === currentCorrect) {
+        feedback.innerText = "✅ Correct!";
+        explanation.innerText = currentExplanation;
+        document.getElementById('nextBtn').style.display = 'inline-block';
+      } else {
+        feedback.innerText = `❌ Wrong! Try again.`;
+      }
+    }
+
+    window.onload = loadGame;
+  </script>
+</body>
+</html>

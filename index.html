@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanskrit Sentence Generator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30vh;
+            text-align: center;
+        }
+
+        .sanskrit {
+            font-size: 24px;
+            margin: 30px 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .loading {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sanskrit Sentence Generator</h1>
+        <div id="sentence-container">
+            <p class="loading">Click the button to generate a Sanskrit sentence</p>
+        </div>
+        <button id="generate-btn" disabled>Generate Sentence</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const generateBtn = document.getElementById('generate-btn');
+            const sentenceContainer = document.getElementById('sentence-container');
+            let sentences = [];
+
+            // Load sentences from JSON file
+            fetch('sentences.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to load sentences');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    sentences = data;
+                    generateBtn.disabled = false;
+                    sentenceContainer.innerHTML = `<p class="loading">Ready! Click the button to generate a sentence.</p>`;
+                })
+                .catch(error => {
+                    sentenceContainer.innerHTML = `<p class="error">Error loading sentences: ${error.message}</p>`;
+                    generateBtn.disabled = true;
+                });
+
+            // Generate random sentence
+            generateBtn.addEventListener('click', function () {
+                if (sentences.length === 0) {
+                    sentenceContainer.innerHTML = `<p class="error">No sentences available</p>`;
+                    return;
+                }
+
+                const randomIndex = Math.floor(Math.random() * sentences.length);
+                const sentence = sentences[randomIndex];
+
+                sentenceContainer.innerHTML = `
+          <p class="sanskrit">${sentence}</p>
+          <p>Click the button again for another sentence</p>
+        `;
+            });
+        });
+    </script>
+</body>
+
+</html>

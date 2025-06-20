@@ -1,0 +1,57 @@
+{
+  "1P": {
+    "verbs": [
+      { "root": "गच्छ्", "meaning": "to go", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "खाद्", "meaning": "to eat", "requires_object": true, "allowed_subject_class": ["human", "animal"], "allowed_object_class": ["food_solid"] },
+      { "root": "पठ्", "meaning": "to read", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_read"] },
+      { "root": "पिब्", "meaning": "to drink", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["food_liquid"] },
+      { "root": "धाव्", "meaning": "to run", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "लिख्", "meaning": "to write", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_write"] },
+      { "root": "हस", "meaning": "to laugh", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "अट्", "meaning": "to wander", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "अर्ह्", "meaning": "to deserve", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general"] },
+      { "root": "कृष्", "meaning": "to plough", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["place"] },
+      { "root": "क्रीड्", "meaning": "to play", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "क्षय्", "meaning": "to decay/perish", "requires_object": false, "allowed_subject_class": ["object_general"] },
+      { "root": "चर्", "meaning": "to move/wander", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "जप्", "meaning": "to recite", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["abstract"] },
+      { "root": "जल्प्", "meaning": "to talk", "requires_object": false, "allowed_subject_class": ["human"] },
+      { "root": "जय्", "meaning": "to conquer", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["human", "animal"] },
+      { "root": "जीव्", "meaning": "to live", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "त्यज्", "meaning": "to abandon", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "human"] },
+      { "root": "यच्छ्", "meaning": "to give", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "human"] },
+      { "root": "पश्य्", "meaning": "to see", "requires_object": true, "allowed_subject_class": ["human", "animal"], "allowed_object_class": ["object_see", "human"] },
+      { "root": "दंश्", "meaning": "to bite", "requires_object": true, "allowed_subject_class": ["animal"], "allowed_object_class": ["animal"] },
+      { "root": "पत्", "meaning": "to fall", "requires_object": false, "allowed_subject_class": ["object_general", "animal", "human"] }
+    ]
+  },
+
+  "4P": {
+    "verbs": [
+      { "root": "ज्ञा", "meaning": "to know", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["abstract"] },
+      { "root": "श्याम्", "meaning": "to be dark", "requires_object": false, "allowed_subject_class": ["object_see"] },
+      { "root": "मन्", "meaning": "to honor", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["human"] },
+      { "root": "इष्", "meaning": "to desire", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general"] },
+      { "root": "तुष्", "meaning": "to be satisfied", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "नश्", "meaning": "to perish", "requires_object": false, "allowed_subject_class": ["object_general", "human", "animal"] },
+      { "root": "नृत्", "meaning": "to dance", "requires_object": false, "allowed_subject_class": ["human"] },
+      { "root": "पुष्", "meaning": "to nourish", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "human"] },
+      { "root": "भ्रम्", "meaning": "to roam", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
+      { "root": "श्रम्", "meaning": "to labor", "requires_object": false, "allowed_subject_class": ["human"] }
+    ]
+  },
+
+  "6P": {
+    "verbs": [
+      { "root": "तृप्", "meaning": "to be satisfied", "requires_object": false, "allowed_subject_class": ["human"] },
+      { "root": "ग्रस्", "meaning": "to swallow", "requires_object": true, "allowed_subject_class": ["animal"], "allowed_object_class": ["food_solid"] },
+      { "root": "क्षिप्", "meaning": "to throw", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "object_see", "weapon"] }
+    ]
+  },
+
+  "10P": {
+    "verbs": [
+      { "root": "नृत्", "meaning": "to dance", "requires_object": false, "allowed_subject_class": ["human"] }
+    ]
+  }
+}
