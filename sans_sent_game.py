@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, send_file
+from flask import Flask, render_template, jsonify, send_file
 from flask_cors import CORS
 import json
 import random
@@ -12,16 +12,16 @@ with open('sentences.json', 'r', encoding='utf-8') as f:
 
 @app.route('/')
 def serve_game():
-    return send_file('game.html')
+    return send_file('sent_game.html')
 
 @app.route('/get_random_sentence')
 def get_random_sentence():
     sentence = random.choice(sentences)
     return jsonify({
         'sentence': sentence['sentence'],
-        'subject': sentence['subject']['form'] if sentence['subject'] else None,
-        'object': sentence['object']['form'] if sentence['object'] else None,
-        'verb': sentence['verb']['form'],
+        'subject': sentence['subject'],  # Send full object
+        'object': sentence['object'],    # Send full object  
+        'verb': sentence['verb'],        # Send full object
         'hint': {
             'subject': {
                 'gender': sentence['subject']['gender'] if sentence['subject'] else None,

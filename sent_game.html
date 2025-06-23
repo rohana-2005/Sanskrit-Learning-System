@@ -5,13 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sanskrit Sentence Game</title>
     <style>
+        html, body {
+            height: 100%;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: auto;   /* Allow vertical scroll */
+        }
+
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
+            min-height: 100vh; /* Ensure full viewport height */
         }
+
         #sentence-display {
             font-size: 24px;
             margin: 20px 0;
@@ -52,6 +60,11 @@
         #options-container {
             margin: 20px 0;
             min-height: 60px;
+            max-height: 200px; /* Limit height */
+            overflow-y: auto;  /* Make scrollable */
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 5px;
         }
         #feedback {
             margin: 20px 0;
@@ -96,12 +109,15 @@
         }
         .modal-content {
             background-color: #fefefe;
-            margin: 15% auto;
+            margin: 5% auto; /* Reduced top margin */
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
             max-width: 600px;
             border-radius: 5px;
+            max-height: 90vh; /* Limit modal height to 90% of viewport */
+            overflow-y: auto; /* Make modal scrollable */
+            position: relative;
         }
         .close {
             color: #aaa;
@@ -140,9 +156,11 @@
         }
         .analysis-dropzone-container {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 10px;
             margin: 20px 0;
+            max-height: 60vh; /* Limit height */
+            overflow-y: auto; /* Make scrollable if needed */
         }
 
         .word-analysis-dropzone {
@@ -215,6 +233,7 @@
         <div id="word-analysis-display">Analyzing: <span id="word-to-analyze"></span></div>
         <div class="word-analysis-options" id="word-analysis-options"></div>
         <div class="analysis-dropzone-container">
+            <!-- Subject Analysis moved to top -->
             <div class="word-analysis-dropzone" id="root-drop">
                 <h3>Root <span class="show-answer">(Show Answer)</span></h3>
                 <div class="answer" style="display: none;"></div>
@@ -223,12 +242,12 @@
                 <h3>Form <span class="show-answer">(Show Answer)</span></h3>
                 <div class="answer" style="display: none;"></div>
             </div>
-            <div class="word-analysis-dropzone" id="number-drop">
-                <h3>Number <span class="show-answer">(Show Answer)</span></h3>
-                <div class="answer" style="display: none;"></div>
-            </div>
             <div class="word-analysis-dropzone" id="gender-drop">
                 <h3>Gender <span class="show-answer">(Show Answer)</span></h3>
+                <div class="answer" style="display: none;"></div>
+            </div>
+            <div class="word-analysis-dropzone" id="number-drop">
+                <h3>Number <span class="show-answer">(Show Answer)</span></h3>
                 <div class="answer" style="display: none;"></div>
             </div>
             <div class="word-analysis-dropzone" id="person-drop">
@@ -421,10 +440,12 @@
         const verbWord = verbDrop.querySelector('.word-option')?.textContent;
         
         if (subjectWord && verbWord) {
-            // Check answers
-            const isSubjectCorrect = subjectWord === correctAnswers.subject;
-            const isObjectCorrect = objectWord ? objectWord === correctAnswers.object : correctAnswers.object === null;
-            const isVerbCorrect = verbWord === correctAnswers.verb;
+            // Check answers - compare with the 'form' property of each object
+            const isSubjectCorrect = subjectWord === (correctAnswers.subject ? correctAnswers.subject.form : null);
+            const isObjectCorrect = objectWord ? 
+                objectWord === (correctAnswers.object ? correctAnswers.object.form : null) : 
+                correctAnswers.object === null;
+            const isVerbCorrect = verbWord === (correctAnswers.verb ? correctAnswers.verb.form : null);
             
             if (isSubjectCorrect && isObjectCorrect && isVerbCorrect) {
                 showFeedback('Correct! Well done!', 'green');
@@ -517,17 +538,16 @@ function initWordAnalysis(wordData, type) {
         });
     });
     
-    // Rest of your initWordAnalysis function remains the same...
     // Create properties array with all available properties
     const properties = [];
-    if (wordData.root) properties.push({type: 'root', text: `Root: ${wordData.root}`});
-    if (wordData.form) properties.push({type: 'form', text: `Form: ${wordData.form}`});
-    if (wordData.number) properties.push({type: 'number', text: `Number: ${wordData.number}`});
-    if (wordData.gender) properties.push({type: 'gender', text: `Gender: ${wordData.gender}`});
-    if (wordData.person) properties.push({type: 'person', text: `Person: ${wordData.person}`});
-    if (wordData.stem) properties.push({type: 'stem', text: `Stem: ${wordData.stem}`});
-    if (wordData.class && type === 'Verb') properties.push({type: 'class', text: `Class: ${wordData.class}`});
-    if (wordData.meaning && type === 'Verb') properties.push({type: 'meaning', text: `Meaning: ${wordData.meaning}`});
+    if (wordData.root) properties.push({type: 'root', text: String(wordData.root)});
+    if (wordData.form) properties.push({type: 'form', text: String(wordData.form)});
+    if (wordData.number) properties.push({type: 'number', text: String(wordData.number)});
+    if (wordData.gender) properties.push({type: 'gender', text: String(wordData.gender)});
+    if (wordData.person) properties.push({type: 'person', text: String(wordData.person)});
+    if (wordData.stem) properties.push({type: 'stem', text: String(wordData.stem)});
+    if (wordData.class && type === 'Verb') properties.push({type: 'class', text: String(wordData.class)});
+    if (wordData.meaning && type === 'Verb') properties.push({type: 'meaning', text: String(wordData.meaning)});
     
     // Shuffle and create draggable elements
     shuffleArray(properties);
@@ -537,7 +557,7 @@ function initWordAnalysis(wordData, type) {
         option.classList.add('word-option');
         option.draggable = true;
         option.dataset.type = prop.type;
-        option.dataset.value = prop.text.split(': ')[1];
+        option.dataset.value = prop.text;
         option.addEventListener('dragstart', wordAnalysisDragStart);
         wordAnalysisOptions.appendChild(option);
     });
@@ -605,26 +625,57 @@ function setupWordAnalysisDropZones() {
 
 // Check word analysis answers
 function checkWordAnalysisAnswers() {
+    const root = document.getElementById('root-drop').querySelector('.word-option')?.textContent;
+    const form = document.getElementById('form-drop').querySelector('.word-option')?.textContent;
+    const number = document.getElementById('number-drop').querySelector('.word-option')?.textContent;
+    const gender = document.getElementById('gender-drop').querySelector('.word-option')?.textContent;
+    const person = document.getElementById('person-drop').querySelector('.word-option')?.textContent;
+    const stem = document.getElementById('stem-drop').querySelector('.word-option')?.textContent;
+    const verbClass = document.getElementById('class-drop').querySelector('.word-option')?.textContent;
+    const meaning = document.getElementById('meaning-drop').querySelector('.word-option')?.textContent;
+    
     let allCorrect = true;
     let feedback = [];
     
-    // Check each property
-    const propertiesToCheck = [
-        'root', 'form', 'number', 'gender', 'person', 'stem', 'class', 'meaning'
-    ];
+    if (currentWordAnalysis.root && root !== String(currentWordAnalysis.root)) {
+        allCorrect = false;
+        feedback.push('Root is incorrect');
+    }
     
-    propertiesToCheck.forEach(prop => {
-        const dropZone = document.getElementById(`${prop}-drop`);
-        if (dropZone.style.display !== 'none') {
-            const droppedValue = dropZone.querySelector('.word-option')?.dataset.value;
-            const correctValue = currentWordAnalysis[prop];
-            
-            if (correctValue && droppedValue !== correctValue) {
-                allCorrect = false;
-                feedback.push(`${prop} is incorrect`);
-            }
-        }
-    });
+    if (currentWordAnalysis.form && form !== String(currentWordAnalysis.form)) {
+        allCorrect = false;
+        feedback.push('Form is incorrect');
+    }
+    
+    if (currentWordAnalysis.number && number !== String(currentWordAnalysis.number)) {
+        allCorrect = false;
+        feedback.push('Number is incorrect');
+    }
+    
+    if (currentWordAnalysis.gender && gender !== String(currentWordAnalysis.gender)) {
+        allCorrect = false;
+        feedback.push('Gender is incorrect');
+    }
+    
+    if (currentWordAnalysis.person && person !== String(currentWordAnalysis.person)) {
+        allCorrect = false;
+        feedback.push('Person is incorrect');
+    }
+    
+    if (currentWordAnalysis.stem && stem !== String(currentWordAnalysis.stem)) {
+        allCorrect = false;
+        feedback.push('Stem is incorrect');
+    }
+    
+    if (currentWordAnalysis.class && verbClass !== String(currentWordAnalysis.class)) {
+        allCorrect = false;
+        feedback.push('Class is incorrect');
+    }
+    
+    if (currentWordAnalysis.meaning && meaning !== String(currentWordAnalysis.meaning)) {
+        allCorrect = false;
+        feedback.push('Meaning is incorrect');
+    }
     
     if (allCorrect) {
         wordAnalysisFeedback.textContent = 'Correct! Well done!';
