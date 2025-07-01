@@ -26,7 +26,7 @@ for key, roots in noun_groups.items():
             "usable_as_object": info["usable_as_object"]
         })
 
-# Load conjugations
+# Load conjugations (now supports tenses)
 with open("conjugations.json", "r", encoding="utf-8") as f:
     conjugations = json.load(f)
 
@@ -82,16 +82,22 @@ def inflect_noun(noun, role):
     else:
         return root + suffix
 
-def get_verb_form(verb, person, number):
+def get_verb_form(verb, person, number, tense="present"):
     key = f"{person}_{number}"
     verb_class = verb["verb_class"]
-    suffix = conjugations[verb_class][key]
-
-    if "A" in suffix:
+    try:
+        suffix = conjugations[tense][verb_class][key]
+    except KeyError:
+        return verb["root"]  
+    stem = verb.get(f"{tense}_stem")
+    if not stem:
         stem = verb["root"][:-1] if verb["root"].endswith("्") else verb["root"]
+
+    if tense == "future":
         return stem + suffix.replace("A", "")
-    else:
-        return verb["root"] + suffix
+
+    return stem + suffix.replace("A", "") if "A" in suffix else stem + suffix
+
 
 def get_valid_nouns(entity_class, role):
     key = "usable_as_subject" if role == "subject" else "usable_as_object"
@@ -100,7 +106,7 @@ def get_valid_nouns(entity_class, role):
         if entity_class in n["entity_classes"] and n.get(key, False)
     ]
 
-def generate_sentence_for_verb(verb):
+def generate_sentence_for_verb(verb, tense="present"):
     sentence_data = []
     subject_classes = verb["allowed_subject_class"]
     object_required = verb["requires_object"]
@@ -112,8 +118,7 @@ def generate_sentence_for_verb(verb):
                 subject["number"] = number
                 person = {"अस्मद्": "1", "युष्मद्": "2"}.get(subject["root"], "3")
                 subject_form = inflect_noun(subject, "subject")
-
-                verb_form = get_verb_form(verb, person, number)
+                verb_form = get_verb_form(verb, person, number, tense)
 
                 if object_required:
                     for obj_class in object_classes:
@@ -124,6 +129,7 @@ def generate_sentence_for_verb(verb):
                                 sentence = f"{subject_form} {object_form} {verb_form}"
                                 sentence_data.append({
                                     "sentence": sentence,
+                                    "tense": tense,
                                     "subject": {
                                         "root": subject["root"],
                                         "form": subject_form,
@@ -153,6 +159,7 @@ def generate_sentence_for_verb(verb):
                     sentence = f"{subject_form} {verb_form}"
                     sentence_data.append({
                         "sentence": sentence,
+                        "tense": tense,
                         "subject": {
                             "root": subject["root"],
                             "form": subject_form,
@@ -175,10 +182,11 @@ def generate_sentence_for_verb(verb):
 
 if __name__ == "__main__":
     all_sentences = []
-    for verb in verbs:
-        all_sentences.extend(generate_sentence_for_verb(verb))
+    for tense in ["present", "past", "future"]: 
+        for verb in verbs:
+            all_sentences.extend(generate_sentence_for_verb(verb, tense=tense))
 
     with open("sentences.json", "w", encoding="utf-8") as f:
         json.dump(all_sentences, f, ensure_ascii=False, indent=2)
 
-    print(f"{len(all_sentences)} sentences generated and saved to 'sentences.json'.")
+    print(f"{len(all_sentences)} sentences generated across tenses and saved to 'sentences.json'.")
