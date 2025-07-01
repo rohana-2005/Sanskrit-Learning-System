@@ -1,57 +1,420 @@
 {
   "1P": {
     "verbs": [
-      { "root": "गच्छ्", "meaning": "to go", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "खाद्", "meaning": "to eat", "requires_object": true, "allowed_subject_class": ["human", "animal"], "allowed_object_class": ["food_solid"] },
-      { "root": "पठ्", "meaning": "to read", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_read"] },
-      { "root": "पिब्", "meaning": "to drink", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["food_liquid"] },
-      { "root": "धाव्", "meaning": "to run", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "लिख्", "meaning": "to write", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_write"] },
-      { "root": "हस", "meaning": "to laugh", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "अट्", "meaning": "to wander", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "अर्ह्", "meaning": "to deserve", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general"] },
-      { "root": "कृष्", "meaning": "to plough", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["place"] },
-      { "root": "क्रीड्", "meaning": "to play", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "क्षय्", "meaning": "to decay/perish", "requires_object": false, "allowed_subject_class": ["object_general"] },
-      { "root": "चर्", "meaning": "to move/wander", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "जप्", "meaning": "to recite", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["abstract"] },
-      { "root": "जल्प्", "meaning": "to talk", "requires_object": false, "allowed_subject_class": ["human"] },
-      { "root": "जय्", "meaning": "to conquer", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["human", "animal"] },
-      { "root": "जीव्", "meaning": "to live", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "त्यज्", "meaning": "to abandon", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "human"] },
-      { "root": "यच्छ्", "meaning": "to give", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "human"] },
-      { "root": "पश्य्", "meaning": "to see", "requires_object": true, "allowed_subject_class": ["human", "animal"], "allowed_object_class": ["object_see", "human"] },
-      { "root": "दंश्", "meaning": "to bite", "requires_object": true, "allowed_subject_class": ["animal"], "allowed_object_class": ["animal"] },
-      { "root": "पत्", "meaning": "to fall", "requires_object": false, "allowed_subject_class": ["object_general", "animal", "human"] }
+      {
+        "root": "गच्छ्",
+        "meaning": "to go",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "past_stem": "अगच्छ",
+        "future_stem": "गमिष्य"
+      },
+      {
+        "root": "खाद्",
+        "meaning": "to eat",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "allowed_object_class": [
+          "food_solid"
+        ],
+        "past_stem": "अखाद",
+        "future_stem": "खादिष्य"
+      },
+      {
+        "root": "पठ्",
+        "meaning": "to read",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_read"
+        ],
+        "past_stem": "अपठ",
+        "future_stem": "पठिष्य"
+      },
+      {
+        "root": "पिब्",
+        "meaning": "to drink",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "food_liquid"
+        ],
+        "past_stem": "अपिब",
+        "future_stem": "पास्य"
+      },
+      {
+        "root": "धाव्",
+        "meaning": "to run",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "past_stem": "अधाव",
+        "future_stem": "धाविष्य"
+      },
+      {
+        "root": "लिख्",
+        "meaning": "to write",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_write"
+        ],
+        "past_stem": "अलिख",
+        "future_stem": "लिखिष्य"
+      },
+      {
+        "root": "हस",
+        "meaning": "to laugh",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "past_stem": "अहस",
+        "future_stem": "हसितास्य"
+      },
+      {
+        "root": "अट्",
+        "meaning": "to wander",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "past_stem": "अट",
+        "future_stem": "अटिष्य"
+      },
+      {
+        "root": "अर्ह्",
+        "meaning": "to deserve",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_general"
+        ],
+        "future_stem": "अर्हिष्य"
+      },
+      {
+        "root": "कृष्",
+        "meaning": "to plough",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "place"
+        ],
+        "past_stem": "अकृष",
+        "future_stem": "कृषिष्य"
+      },
+      {
+        "root": "क्रीड्",
+        "meaning": "to play",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "past_stem": "अक्रीड",
+        "future_stem": "क्रीडिष्य"
+      },
+      {
+        "root": "क्षय्",
+        "meaning": "to decay/perish",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "object_general"
+        ],
+        "future_stem": "क्षयिष्य"
+      },
+      {
+        "root": "चर्",
+        "meaning": "to move/wander",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "past_stem": "अचर",
+        "future_stem": "चरिष्य"
+      },
+      {
+        "root": "जप्",
+        "meaning": "to recite",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "abstract"
+        ],
+        "past_stem": "अजप",
+        "future_stem": "जपिष्य"
+      },
+      {
+        "root": "जल्प्",
+        "meaning": "to talk",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "future_stem": "जल्पिष्य"
+      },
+      {
+        "root": "जय्",
+        "meaning": "to conquer",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "human",
+          "animal"
+        ],
+        "future_stem": "जेष्य"
+      },
+      {
+        "root": "जीव्",
+        "meaning": "to live",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "future_stem": "जीविष्य"
+      },
+      {
+        "root": "त्यज्",
+        "meaning": "to abandon",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_general",
+          "human"
+        ],
+        "past_stem": "अत्यज",
+        "future_stem": "त्यक्ष्य"
+      },
+      {
+        "root": "यच्छ्",
+        "meaning": "to give",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_general",
+          "human"
+        ],
+        "future_stem": "यत्स्य"
+      },
+      {
+        "root": "पश्य्",
+        "meaning": "to see",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "allowed_object_class": [
+          "object_see",
+          "human"
+        ],
+        "past_stem": "अपश्य",
+        "future_stem": "द्रक्ष्य"
+      },
+      {
+        "root": "दंश्",
+        "meaning": "to bite",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "animal"
+        ],
+        "allowed_object_class": [
+          "animal"
+        ],
+        "future_stem": "दंशिष्य"
+      },
+      {
+        "root": "पत्",
+        "meaning": "to fall",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "object_general",
+          "animal",
+          "human"
+        ],
+        "past_stem": "अपत्",
+        "future_stem": "पतिष्य"
+      }
     ]
   },
-
   "4P": {
     "verbs": [
-      { "root": "ज्ञा", "meaning": "to know", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["abstract"] },
-      { "root": "श्याम्", "meaning": "to be dark", "requires_object": false, "allowed_subject_class": ["object_see"] },
-      { "root": "मन्", "meaning": "to honor", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["human"] },
-      { "root": "इष्", "meaning": "to desire", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general"] },
-      { "root": "तुष्", "meaning": "to be satisfied", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "नश्", "meaning": "to perish", "requires_object": false, "allowed_subject_class": ["object_general", "human", "animal"] },
-      { "root": "नृत्", "meaning": "to dance", "requires_object": false, "allowed_subject_class": ["human"] },
-      { "root": "पुष्", "meaning": "to nourish", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "human"] },
-      { "root": "भ्रम्", "meaning": "to roam", "requires_object": false, "allowed_subject_class": ["human", "animal"] },
-      { "root": "श्रम्", "meaning": "to labor", "requires_object": false, "allowed_subject_class": ["human"] }
+      {
+        "root": "मन्",
+        "meaning": "to honor",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "human"
+        ],
+        "past_stem": "अमन",
+        "future_stem": "मनिष्य"
+      },
+      {
+        "root": "इष्",
+        "meaning": "to desire",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_general"
+        ],
+        "past_stem": "ऐष",
+        "future_stem": "इषिष्य"
+      },
+      {
+        "root": "तुष्",
+        "meaning": "to be satisfied",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "future_stem": "तुषिष्य"
+      },
+      {
+        "root": "नश्",
+        "meaning": "to perish",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "object_general",
+          "human",
+          "animal"
+        ],
+        "future_stem": "नशिष्य"
+      },
+      {
+        "root": "नृत्",
+        "meaning": "to dance",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "past_stem": "अनृत",
+        "future_stem": "नृतिष्य"
+      },
+      {
+        "root": "पुष्",
+        "meaning": "to nourish",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_general",
+          "human"
+        ],
+        "future_stem": "पुषिष्य"
+      },
+      {
+        "root": "भ्रम्",
+        "meaning": "to roam",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human",
+          "animal"
+        ],
+        "past_stem": "अभ्रम",
+        "future_stem": "भ्रमिष्य"
+      },
+      {
+        "root": "श्रम्",
+        "meaning": "to labor",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "past_stem": "अश्रम",
+        "future_stem": "श्रमिष्य"
+      }
     ]
   },
-
   "6P": {
     "verbs": [
-      { "root": "तृप्", "meaning": "to be satisfied", "requires_object": false, "allowed_subject_class": ["human"] },
-      { "root": "ग्रस्", "meaning": "to swallow", "requires_object": true, "allowed_subject_class": ["animal"], "allowed_object_class": ["food_solid"] },
-      { "root": "क्षिप्", "meaning": "to throw", "requires_object": true, "allowed_subject_class": ["human"], "allowed_object_class": ["object_general", "object_see", "weapon"] }
+      {
+        "root": "तृप्",
+        "meaning": "to be satisfied",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "future_stem": "तृपिष्य"
+      },
+      {
+        "root": "ग्रस्",
+        "meaning": "to swallow",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "animal"
+        ],
+        "allowed_object_class": [
+          "food_solid"
+        ],
+        "past_stem": "अग्रस्",
+        "future_stem": "ग्रसिष्य"
+      },
+      {
+        "root": "क्षिप्",
+        "meaning": "to throw",
+        "requires_object": true,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "allowed_object_class": [
+          "object_general",
+          "object_see",
+          "weapon"
+        ],
+        "past_stem": "अक्षिप",
+        "future_stem": "क्षिपिष्य"
+      }
     ]
   },
-
   "10P": {
     "verbs": [
-      { "root": "नृत्", "meaning": "to dance", "requires_object": false, "allowed_subject_class": ["human"] }
+      {
+        "root": "नृत्",
+        "meaning": "to dance",
+        "requires_object": false,
+        "allowed_subject_class": [
+          "human"
+        ],
+        "past_stem": "अनृत",
+        "future_stem": "नृतिष्य"
+      }
     ]
   }
 }
