@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskrit Sentence Structure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 10px;
+        }
+        h2 {
+            margin: 25px 0 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        h3 {
+            margin: 20px 0 10px;
+            text-align: left;
+            color: #2980b9;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .sanskrit {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 24px;
+            text-align: center;
+            margin: 15px 0;
+            color: #2c3e50;
+        }
+        .example {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        .exercise {
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #e8f4fc;
+            border-radius: 5px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .option {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+        }
+        .option.selected {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        .feedback {
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            min-height: 24px;
+        }
+        .correct {
+            color: #27ae60;
+        }
+        .incorrect {
+            color: #e74c3c;
+        }
+        .progress-container {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            height: 20px;
+            background-color: #3498db;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .hidden {
+            display: none;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .term {
+            font-weight: bold;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div id="intro-section" class="section active">
+        <h1>Introduction to Sanskrit Sentence Structure</h1>
+        <div class="card">
+            <p>Welcome to this interactive Sanskrit learning tool! This guide will teach you:</p>
+            <ul>
+                <li>Basic Sanskrit sentence structure</li>
+                <li>Key grammatical concepts</li>
+                <li>How to identify sentence components</li>
+                <li>Practice exercises to test your knowledge</li>
+            </ul>
+            <p>Sanskrit sentences typically follow a <span class="term">Subject-Object-Verb (SOV)</span> structure, though the order can be flexible due to its rich case system.</p>
+            <div class="sanskrit">रामः फलं खादति।</div>
+            <p class="example">(Rāmaḥ phalaṁ khādati.) - Rama eats a fruit.</p>
+            <button id="start-btn" style="display: block; margin: 20px auto;">Begin Learning</button>
+        </div>
+    </div>
+
+    <div id="structure-section" class="section">
+        <h1>Sanskrit Sentence Structure</h1>
+        <div class="card">
+            <h2>Basic Components</h2>
+            <p>A simple Sanskrit sentence typically contains these elements:</p>
+            
+            <h3>1. Subject (कर्ता - kartā)</h3>
+            <p>The doer of the action, usually in nominative case.</p>
+            <div class="sanskrit">रामः (Rāmaḥ)</div>
+            <p class="example">Rama (the subject)</p>
+            
+            <h3>2. Verb (क्रिया - kriyā)</h3>
+            <p>The action word, conjugated according to person and number.</p>
+            <div class="sanskrit">खादति (khādati)</div>
+            <p class="example">eats (3rd person singular)</p>
+            
+            <div class="example">
+                <div class="sanskrit">रामः खादति।</div>
+                <p>(Rāmaḥ khādati.) - Rama eats.</p>
+                <p><strong>Structure:</strong> Subject + Verb</p>
+            </div>
+            
+            <div class="nav-buttons">
+                <button id="back-to-intro">Previous</button>
+                <button id="next-to-examples">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="examples-section" class="section">
+        <h1>Sanskrit Sentence Examples</h1>
+        <div class="card">
+            <h2>Common Sentence Patterns</h2>
+            
+            <h3>Intransitive Sentences (No object)</h3>
+            <div class="sanskrit">बालः पठति।</div>
+            <p class="example">(Bālaḥ paṭhati.) - The boy reads.</p>
+            
+            <h3>Transitive Sentences (With object)</h3>
+            <div class="sanskrit">बालः पुस्तकं पठति।</div>
+            <p class="example">(Bālaḥ pustakaṁ paṭhati.) - The boy reads a book.</p>
+            
+            <h3>Sentences with Adjectives</h3>
+            <div class="sanskrit">सुन्दरः बालः पठति।</div>
+            <p class="example">(Sundaraḥ bālaḥ paṭhati.) - The beautiful boy reads.</p>
+            
+            <h3>Negative Sentences</h3>
+            <div class="sanskrit">बालः न पठति।</div>
+            <p class="example">(Bālaḥ na paṭhati.) - The boy does not read.</p>
+            
+            <div class="nav-buttons">
+                <button id="back-to-structure">Previous</button>
+                <button id="next-to-exercises">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="exercises-section" class="section">
+        <h1>Practice Exercises</h1>
+        <div class="card">
+            <h2>Identify the Sentence Components</h2>
+            <div class="progress-container">
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+            <div id="exercise-1" class="exercise">
+                <h3>Exercise 1: Identify the Subject</h3>
+                <div class="sanskrit" id="ex1-sentence">गजः तिष्ठति।</div>
+                <p>(Gajaḥ tiṣṭhati.) - The elephant stands.</p>
+                <p>What is the subject in this sentence?</p>
+                <div class="options" id="ex1-options">
+                    <div class="option" data-correct="true">गजः (Gajaḥ)</div>
+                    <div class="option">तिष्ठति (tiṣṭhati)</div>
+                    <div class="option">गज (Gaja)</div>
+                </div>
+                <div class="feedback" id="ex1-feedback"></div>
+                <button id="ex1-check" disabled>Check Answer</button>
+                <button id="ex1-next" class="hidden">Continue</button>
+            </div>
+            
+            <div id="exercise-2" class="exercise hidden">
+                <h3>Exercise 2: Identify the Verb</h3>
+                <div class="sanskrit" id="ex2-sentence">सीता गायति।</div>
+                <p>(Sītā gāyati.) - Sita sings.</p>
+                <p>What is the verb in this sentence?</p>
+                <div class="options" id="ex2-options">
+                    <div class="option">सीता (Sītā)</div>
+                    <div class="option" data-correct="true">गायति (gāyati)</div>
+                    <div class="option">गा (gā)</div>
+                </div>
+                <div class="feedback" id="ex2-feedback"></div>
+                <button id="ex2-check" disabled>Check Answer</button>
+                <button id="ex2-next" class="hidden">Continue</button>
+            </div>
+            
+            <div id="exercise-3" class="exercise hidden">
+                <h3>Exercise 3: Complete the Sentence</h3>
+                <p>Select the correct verb form to complete this sentence:</p>
+                <div class="sanskrit">बालकः ______।</div>
+                <p>(Bālakaḥ ______.) - The boy plays.</p>
+                <div class="options" id="ex3-options">
+                    <div class="option">खादति (khādati)</div>
+                    <div class="option" data-correct="true">क्रीडति (krīḍati)</div>
+                    <div class="option">पश्यति (paśyati)</div>
+                </div>
+                <div class="feedback" id="ex3-feedback"></div>
+                <button id="ex3-check" disabled>Check Answer</button>
+                <button id="ex3-next" class="hidden">Continue</button>
+            </div>
+            
+            <div id="completion-message" class="hidden">
+                <h2>Congratulations!</h2>
+                <p>You've completed the introductory exercises on Sanskrit sentence structure.</p>
+                <p>You got <span id="score">0</span> out of 3 exercises correct!</p>
+                <button id="restart-btn">Start Again</button>
+            </div>
+            
+            <div class="nav-buttons">
+                <button id="back-to-examples">Previous</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Section navigation
+            const sections = document.querySelectorAll('.section');
+            let currentSection = 0;
+            
+            // Exercise state
+            let currentExercise = 1;
+            let score = 0;
+            
+            // Navigation buttons
+            document.getElementById('start-btn').addEventListener('click', function() {
+                showSection(1);
+            });
+            
+            document.getElementById('next-to-examples').addEventListener('click', function() {
+                showSection(2);
+            });
+            
+            document.getElementById('next-to-exercises').addEventListener('click', function() {
+                showSection(3);
+            });
+            
+            document.getElementById('back-to-intro').addEventListener('click', function() {
+                showSection(0);
+            });
+            
+            document.getElementById('back-to-structure').addEventListener('click', function() {
+                showSection(1);
+            });
+            
+            document.getElementById('back-to-examples').addEventListener('click', function() {
+                showSection(2);
+            });
+            
+            document.getElementById('restart-btn').addEventListener('click', function() {
+                resetExercises();
+                showSection(0);
+            });
+            
+            function showSection(index) {
+                sections.forEach(section => section.classList.remove('active'));
+                sections[index].classList.add('active');
+                currentSection = index;
+            }
+            
+            // Exercise functionality
+            function setupExercise(exNumber) {
+                const options = document.querySelectorAll(`#ex${exNumber}-options .option`);
+                const checkBtn = document.getElementById(`ex${exNumber}-check`);
+                const nextBtn = document.getElementById(`ex${exNumber}-next`);
+                const feedback = document.getElementById(`ex${exNumber}-feedback`);
+                
+                options.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Remove selected class from all options
+                        options.forEach(opt => opt.classList.remove('selected'));
+                        // Add selected class to clicked option
+                        this.classList.add('selected');
+                        // Enable check button
+                        checkBtn.disabled = false;
+                    });
+                });
+                
+                checkBtn.addEventListener('click', function() {
+                    const selectedOption = document.querySelector(`#ex${exNumber}-options .option.selected`);
+                    if (selectedOption) {
+                        const isCorrect = selectedOption.hasAttribute('data-correct');
+                        
+                        if (isCorrect) {
+                            feedback.textContent = "Correct! Well done!";
+                            feedback.className = "feedback correct";
+                            score++;
+                        } else {
+                            feedback.textContent = "Not quite right. Try again!";
+                            feedback.className = "feedback incorrect";
+                        }
+                        
+                        // Show the correct answer
+                        options.forEach(opt => {
+                            if (opt.hasAttribute('data-correct')) {
+                                opt.style.backgroundColor = "#27ae60";
+                                opt.style.color = "white";
+                            }
+                            opt.classList.remove('hover');
+                        });
+                        
+                        checkBtn.disabled = true;
+                        nextBtn.classList.remove('hidden');
+                    }
+                });
+                
+                nextBtn.addEventListener('click', function() {
+                    document.getElementById(`exercise-${exNumber}`).classList.add('hidden');
+                    
+                    if (exNumber < 3) {
+                        document.getElementById(`exercise-${exNumber+1}`).classList.remove('hidden');
+                        updateProgressBar((exNumber) * 33.33);
+                    } else {
+                        // All exercises completed
+                        document.getElementById('completion-message').classList.remove('hidden');
+                        document.getElementById('score').textContent = score;
+                        updateProgressBar(100);
+                    }
+                });
+            }
+            
+            function updateProgressBar(percent) {
+                document.getElementById('progress-bar').style.width = percent + '%';
+            }
+            
+            function resetExercises() {
+                // Reset all exercises to initial state
+                for (let i = 1; i <= 3; i++) {
+                    document.getElementById(`exercise-${i}`).classList.remove('hidden');
+                    if (i > 1) {
+                        document.getElementById(`exercise-${i}`).classList.add('hidden');
+                    }
+                    
+                    const options = document.querySelectorAll(`#ex${i}-options .option`);
+                    options.forEach(opt => {
+                        opt.classList.remove('selected');
+                        opt.style.backgroundColor = "";
+                        opt.style.color = "";
+                    });
+                    
+                    document.getElementById(`ex${i}-check`).disabled = true;
+                    document.getElementById(`ex${i}-next`).classList.add('hidden');
+                    document.getElementById(`ex${i}-feedback`).textContent = '';
+                }
+                
+                document.getElementById('completion-message').classList.add('hidden');
+                score = 0;
+                updateProgressBar(0);
+            }
+            
+            // Initialize exercises
+            setupExercise(1);
+            setupExercise(2);
+            setupExercise(3);
+        });
+    </script>
+</body>
+</html>

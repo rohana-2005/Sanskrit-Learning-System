@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskrit Verb Conjugation Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .sanskrit {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .game-area {
+            display: none;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        .option-group {
+            text-align: center;
+            margin: 10px;
+            min-width: 150px;
+        }
+        .option-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 18px;
+            color: #2c3e50;
+        }
+        .option {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .option:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+        .option.selected {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+            transform: translateY(-2px);
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 25px auto;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .feedback {
+            text-align: center;
+            margin: 25px 0;
+            font-weight: bold;
+            font-size: 18px;
+            min-height: 24px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            color: #27ae60;
+            background-color: #e8f8f0;
+        }
+        .incorrect {
+            color: #e74c3c;
+            background-color: #fae8e8;
+        }
+        .score {
+            text-align: center;
+            font-size: 20px;
+            margin: 25px 0;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .loading {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .hidden {
+            display: none;
+        }
+        .info-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        .info-section h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 22px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .info-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .info-card h4 {
+            color: #3498db;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .ending-example {
+            font-family: 'Noto Sans Devanagari', sans-serif;
+            font-size: 20px;
+            color: #2c3e50;
+            margin: 5px 0;
+        }
+        .example-meaning {
+            font-style: italic;
+            color: #7f8c8d;
+            margin-left: 10px;
+        }
+        .tab-container {
+            margin: 20px 0;
+        }
+        .tab-buttons {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 15px;
+        }
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #7f8c8d;
+            border-bottom: 2px solid transparent;
+            margin-right: 5px;
+            transition: all 0.3s;
+        }
+        .tab-btn.active {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Sanskrit Verb Conjugation Game</h1>
+        <div class="intro">
+            <p>Learn to recognize Sanskrit verb conjugations by identifying person and number in sentences.</p>
+            
+            <div class="info-section">
+                <h3>Understanding Sanskrit Verbs</h3>
+                
+                <div class="tab-container">
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="concepts">Basic Concepts</button>
+                        <button class="tab-btn" data-tab="endings">Verb Endings</button>
+                        <button class="tab-btn" data-tab="examples">Examples</button>
+                    </div>
+                    
+                    <div id="concepts" class="tab-content active">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>Persons</h4>
+                                <p><strong>1st Person</strong> - The speaker (I, we)</p>
+                                <p><strong>2nd Person</strong> - The person spoken to (you)</p>
+                                <p><strong>3rd Person</strong> - The person/thing spoken about (he, she, it, they)</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h4>Numbers</h4>
+                                <p><strong>Singular</strong> - One subject (एकवचन)</p>
+                                <p><strong>Dual</strong> - Two subjects (द्विवचन) - unique to Sanskrit!</p>
+                                <p><strong>Plural</strong> - Three or more subjects (बहुवचन)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="endings" class="tab-content">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>Present Tense Endings (Parasmaipada)</h4>
+                                <p><strong>1st Person:</strong></p>
+                                <div class="ending-example">Singular: -मि <span class="example-meaning">(bhavāmi - I am)</span></div>
+                                <div class="ending-example">Dual: -वः <span class="example-meaning">(bhavāvaḥ - we two are)</span></div>
+                                <div class="ending-example">Plural: -मः <span class="example-meaning">(bhavāmaḥ - we are)</span></div>
+                                
+                                <p><strong>2nd Person:</strong></p>
+                                <div class="ending-example">Singular: -सि <span class="example-meaning">(bhavasi - you are)</span></div>
+                                <div class="ending-example">Dual: -थः <span class="example-meaning">(bhavathaḥ - you two are)</span></div>
+                                <div class="ending-example">Plural: -थ <span class="example-meaning">(bhavatha - you all are)</span></div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h4>Present Tense Endings (continued)</h4>
+                                <p><strong>3rd Person:</strong></p>
+                                <div class="ending-example">Singular: -ति <span class="example-meaning">(bhavati - he/she/it is)</span></div>
+                                <div class="ending-example">Dual: -तः <span class="example-meaning">(bhavataḥ - they two are)</span></div>
+                                <div class="ending-example">Plural: -न्ति <span class="example-meaning">(bhavanti - they are)</span></div>
+                                
+                                <p><strong>Common Patterns:</strong></p>
+                                <div class="ending-example">1st person often ends in -mi/-vaḥ/-maḥ</div>
+                                <div class="ending-example">2nd person often has -si/-thaḥ/-tha</div>
+                                <div class="ending-example">3rd person often has -ti/-taḥ/-nti</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="examples" class="tab-content">
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>1st Person Examples</h4>
+                                <div class="ending-example">पठामि <span class="example-meaning">(I read)</span></div>
+                                <div class="ending-example">पठावः <span class="example-meaning">(We two read)</span></div>
+                                <div class="ending-example">पठामः <span class="example-meaning">(We read)</span></div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h4>2nd Person Examples</h4>
+                                <div class="ending-example">पठसि <span class="example-meaning">(You read)</span></div>
+                                <div class="ending-example">पठथः <span class="example-meaning">(You two read)</span></div>
+                                <div class="ending-example">पठथ <span class="example-meaning">(You all read)</span></div>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h4>3rd Person Examples</h4>
+                                <div class="ending-example">पठति <span class="example-meaning">(He/She reads)</span></div>
+                                <div class="ending-example">पठतः <span class="example-meaning">(They two read)</span></div>
+                                <div class="ending-example">पठन्ति <span class="example-meaning">(They read)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button id="start-game">Start Practice</button>
+        </div>
+        
+        <div id="game-area" class="game-area">
+            <div class="score">
+                <span>Score: <span id="current-score">0</span></span> | 
+                <span>Questions: <span id="question-count">0</span></span>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading question...</p>
+            </div>
+            
+            <div id="question-container">
+                <div class="sanskrit" id="sentence"></div>
+                
+                <div class="options">
+                    <div class="option-group">
+                        <div class="option-title">Person</div>
+                        <div class="option" data-person="1">First (1st)</div>
+                        <div class="option" data-person="2">Second (2nd)</div>
+                        <div class="option" data-person="3">Third (3rd)</div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <div class="option-title">Number</div>
+                        <div class="option" data-number="sg">Singular</div>
+                        <div class="option" data-number="du">Dual</div>
+                        <div class="option" data-number="pl">Plural</div>
+                    </div>
+                </div>
+                
+                <div class="feedback" id="feedback"></div>
+                
+                <button id="submit-answer" disabled>Submit Answer</button>
+                <button id="next-question" class="hidden">Next Question</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Game elements
+            const startBtn = document.getElementById('start-game');
+            const gameArea = document.getElementById('game-area');
+            const loadingElement = document.getElementById('loading');
+            const questionContainer = document.getElementById('question-container');
+            const sentenceElement = document.getElementById('sentence');
+            const submitBtn = document.getElementById('submit-answer');
+            const nextBtn = document.getElementById('next-question');
+            const feedbackElement = document.getElementById('feedback');
+            const currentScoreElement = document.getElementById('current-score');
+            const questionCountElement = document.getElementById('question-count');
+            const personOptions = document.querySelectorAll('[data-person]');
+            const numberOptions = document.querySelectorAll('[data-number]');
+            
+            // Game state
+            let sentences = [];
+            let currentSentence = null;
+            let selectedPerson = null;
+            let selectedNumber = null;
+            let score = 0;
+            let questionsAttempted = 0;
+            
+            // Start game
+            startBtn.addEventListener('click', function() {
+                startBtn.style.display = 'none';
+                gameArea.style.display = 'block';
+                loadSentences();
+            });
+            
+            // Load sentences from JSON file
+            function loadSentences() {
+                loadingElement.style.display = 'block';
+                questionContainer.style.display = 'none';
+                
+                fetch('sentences.json')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to load sentences.json');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (!Array.isArray(data)) {
+                            throw new Error('Invalid data format in sentences.json');
+                        }
+                        sentences = data.filter(s => !s.verb.requires_object);
+                        startNewQuestion();
+                    })
+                    .catch(error => {
+                        console.error('Error loading sentences:', error);
+                        loadingElement.style.display = 'none';
+                        feedbackElement.textContent = "Error loading sentences. Please check console.";
+                        feedbackElement.className = "feedback incorrect";
+                    });
+            }
+            
+            // Start a new question
+            function startNewQuestion() {
+                // Reset selection
+                selectedPerson = null;
+                selectedNumber = null;
+                personOptions.forEach(opt => opt.classList.remove('selected'));
+                numberOptions.forEach(opt => opt.classList.remove('selected'));
+                submitBtn.disabled = true;
+                nextBtn.classList.add('hidden');
+                feedbackElement.textContent = '';
+                feedbackElement.className = 'feedback';
+                
+                // Show loading
+                questionContainer.style.display = 'none';
+                loadingElement.style.display = 'block';
+                
+                // Get random sentence after short delay (for better UX)
+                setTimeout(() => {
+                    try {
+                        const randomIndex = Math.floor(Math.random() * sentences.length);
+                        currentSentence = sentences[randomIndex];
+                        
+                        // Display the sentence (subject + verb only)
+                        const sentenceParts = currentSentence.sentence.split(' ');
+                        sentenceElement.textContent = `${sentenceParts[0]} ${sentenceParts[2] || sentenceParts[1]}`;
+                        
+                        // Update score display
+                        questionCountElement.textContent = questionsAttempted + 1;
+                        
+                        // Hide loading and show question
+                        loadingElement.style.display = 'none';
+                        questionContainer.style.display = 'block';
+                    } catch (error) {
+                        console.error('Error loading question:', error);
+                        loadingElement.style.display = 'none';
+                        feedbackElement.textContent = "Error loading question. Please check console.";
+                        feedbackElement.className = "feedback incorrect";
+                    }
+                }, 300);
+            }
+            
+            // Option selection
+            personOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    personOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedPerson = this.getAttribute('data-person');
+                    checkSelections();
+                });
+            });
+            
+            numberOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    numberOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedNumber = this.getAttribute('data-number');
+                    checkSelections();
+                });
+            });
+            
+            function checkSelections() {
+                if (selectedPerson && selectedNumber) {
+                    submitBtn.disabled = false;
+                }
+            }
+            
+            // Submit answer
+            submitBtn.addEventListener('click', function() {
+                try {
+                    const verb = currentSentence.verb;
+                    const isPersonCorrect = selectedPerson === verb.person;
+                    const isNumberCorrect = selectedNumber === verb.number;
+                    
+                    if (isPersonCorrect && isNumberCorrect) {
+                        feedbackElement.textContent = "Correct! Well done!";
+                        feedbackElement.className = "feedback correct";
+                        score++;
+                        currentScoreElement.textContent = score;
+                    } else {
+                        let feedback = "Not quite. ";
+                        if (!isPersonCorrect && !isNumberCorrect) {
+                            feedback += `The correct answer is person ${verb.person} (${getPersonName(verb.person)}) and ${getNumberName(verb.number)}.`;
+                        } else if (!isPersonCorrect) {
+                            feedback += `The person should be ${verb.person} (${getPersonName(verb.person)}).`;
+                        } else {
+                            feedback += `The number should be ${getNumberName(verb.number)}.`;
+                        }
+                        
+                        // Add verb ending info to feedback
+                        feedback += `<br>Verb form: ${verb.form} (${verb.root} + ${getEndingExample(verb)})`;
+                        feedbackElement.innerHTML = feedback;
+                        feedbackElement.className = "feedback incorrect";
+                    }
+                    
+                    questionsAttempted++;
+                    submitBtn.disabled = true;
+                    nextBtn.classList.remove('hidden');
+                } catch (error) {
+                    console.error('Error checking answer:', error);
+                    feedbackElement.textContent = "Error checking answer. Please check console.";
+                    feedbackElement.className = "feedback incorrect";
+                }
+            });
+            
+            // Helper function to get person name
+            function getPersonName(person) {
+                const personNames = {
+                    '1': '1st',
+                    '2': '2nd',
+                    '3': '3rd'
+                };
+                return personNames[person] || person;
+            }
+            
+            // Helper function to get number name
+            function getNumberName(number) {
+                const numberNames = {
+                    'sg': 'singular',
+                    'du': 'dual',
+                    'pl': 'plural'
+                };
+                return numberNames[number] || number;
+            }
+            
+            // Helper function to get ending example
+            function getEndingExample(verb) {
+                const endings = {
+                    '1_sg': 'मि',
+                    '1_du': 'वः',
+                    '1_pl': 'मः',
+                    '2_sg': 'सि',
+                    '2_du': 'थः',
+                    '2_pl': 'थ',
+                    '3_sg': 'ति',
+                    '3_du': 'तः',
+                    '3_pl': 'न्ति'
+                };
+                const key = `${verb.person}_${verb.number}`;
+                return endings[key] || 'ending';
+            }
+            
+            // Next question
+            nextBtn.addEventListener('click', startNewQuestion);
+        });
+    </script>
+</body>
+</html>
