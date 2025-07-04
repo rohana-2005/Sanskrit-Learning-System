@@ -85,19 +85,26 @@ def inflect_noun(noun, role):
 def get_verb_form(verb, person, number, tense="present"):
     key = f"{person}_{number}"
     verb_class = verb["verb_class"]
+
     try:
         suffix = conjugations[tense][verb_class][key]
     except KeyError:
-        return verb["root"]  
-    stem = verb.get(f"{tense}_stem")
-    if not stem:
-        stem = verb["root"][:-1] if verb["root"].endswith("्") else verb["root"]
+        return verb["root"]  # fallback
 
+    # Choose the appropriate stem
     if tense == "future":
-        return stem + suffix.replace("A", "")
+        stem = verb.get("future_stem", verb["root"])
+    elif tense == "past":
+        stem = verb.get("past_stem", verb["root"])
+    else:
+        stem = verb["root"]
 
-    return stem + suffix.replace("A", "") if "A" in suffix else stem + suffix
+    # 🔻 Drop halant for all EXCEPT present 4P
+    if not (tense == "present" and verb_class == "4P"):
+        if stem.endswith("्"):
+            stem = stem[:-1]
 
+    return stem + suffix.replace("A", "")
 
 def get_valid_nouns(entity_class, role):
     key = "usable_as_subject" if role == "subject" else "usable_as_object"

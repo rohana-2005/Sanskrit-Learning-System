@@ -19,9 +19,10 @@ def label(person, number):
 
 def generate_distractors(correct_form, verb_root, verb_class):
     all_forms = []
-    stem = verb_root[:-1] if verb_root.endswith("्") else verb_root
+   
     for key, suffix in conjugations[verb_class].items():
-        form = stem + suffix.replace("A", "") if "A" in suffix else verb_root + suffix
+        form = verb_root + suffix.replace("A", "")
+
         if form != correct_form:
             person, number = key.split("_")
             all_forms.append((form, person, number))

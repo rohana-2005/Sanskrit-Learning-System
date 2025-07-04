@@ -104,11 +104,6 @@
       "usable_as_subject": false,
       "usable_as_object": true
     },
-    "शाखा": {
-      "entity_classes": ["object_read"],
-      "usable_as_subject": false,
-      "usable_as_object": true
-    },
     "छाया": {
       "entity_classes": ["abstract"],
       "usable_as_subject": false,
@@ -194,13 +189,7 @@
     }
   },
 
-  "neut_उ": {
-    "वस्तु": {
-      "entity_classes": ["object_general"],
-      "usable_as_subject": false,
-      "usable_as_object": true
-    }
-  },
+ 
 
   "none_none": {
     "अस्मद्": {

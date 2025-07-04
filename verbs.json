@@ -9,8 +9,8 @@
           "human",
           "animal"
         ],
-        "past_stem": "अगच्छ",
-        "future_stem": "गमिष्य"
+        "past_stem": "अगच्छ्",
+        "future_stem": "गमिष्य्"
       },
       {
         "root": "खाद्",
@@ -23,8 +23,8 @@
         "allowed_object_class": [
           "food_solid"
         ],
-        "past_stem": "अखाद",
-        "future_stem": "खादिष्य"
+        "past_stem": "अखाद्",
+        "future_stem": "खादिष्य्"
       },
       {
         "root": "पठ्",
@@ -36,8 +36,8 @@
         "allowed_object_class": [
           "object_read"
         ],
-        "past_stem": "अपठ",
-        "future_stem": "पठिष्य"
+        "past_stem": "अपठ्",
+        "future_stem": "पठिष्य्"
       },
       {
         "root": "पिब्",
@@ -49,8 +49,8 @@
         "allowed_object_class": [
           "food_liquid"
         ],
-        "past_stem": "अपिब",
-        "future_stem": "पास्य"
+        "past_stem": "अपिब्",
+        "future_stem": "पास्य्"
       },
       {
         "root": "धाव्",
@@ -60,56 +60,34 @@
           "human",
           "animal"
         ],
-        "past_stem": "अधाव",
-        "future_stem": "धाविष्य"
+        "past_stem": "अधाव्",
+        "future_stem": "धाविष्य्"
       },
       {
-        "root": "लिख्",
-        "meaning": "to write",
+        "root": "ग्रस्",
+        "meaning": "to swallow",
         "requires_object": true,
         "allowed_subject_class": [
-          "human"
+          "animal"
         ],
         "allowed_object_class": [
-          "object_write"
+          "food_solid"
         ],
-        "past_stem": "अलिख",
-        "future_stem": "लिखिष्य"
+        "past_stem": "अग्रस्",
+        "future_stem": "ग्रसिष्य्"
       },
       {
-        "root": "हस",
+        "root": "हस्",
         "meaning": "to laugh",
         "requires_object": false,
         "allowed_subject_class": [
           "human",
           "animal"
         ],
-        "past_stem": "अहस",
-        "future_stem": "हसितास्य"
+        "past_stem": "अहस्",
+        "future_stem": "हसिष्य्"
       },
-      {
-        "root": "अट्",
-        "meaning": "to wander",
-        "requires_object": false,
-        "allowed_subject_class": [
-          "human",
-          "animal"
-        ],
-        "past_stem": "अट",
-        "future_stem": "अटिष्य"
-      },
-      {
-        "root": "अर्ह्",
-        "meaning": "to deserve",
-        "requires_object": true,
-        "allowed_subject_class": [
-          "human"
-        ],
-        "allowed_object_class": [
-          "object_general"
-        ],
-        "future_stem": "अर्हिष्य"
-      },
+      
       {
         "root": "कृष्",
         "meaning": "to plough",
@@ -120,8 +98,8 @@
         "allowed_object_class": [
           "place"
         ],
-        "past_stem": "अकृष",
-        "future_stem": "कृषिष्य"
+        "past_stem": "अकृष्",
+        "future_stem": "कृषिष्य्"
       },
       {
         "root": "क्रीड्",
@@ -131,8 +109,8 @@
           "human",
           "animal"
         ],
-        "past_stem": "अक्रीड",
-        "future_stem": "क्रीडिष्य"
+        "past_stem": "अक्रीड्",
+        "future_stem": "क्रीडिष्य्"
       },
       {
         "root": "क्षय्",
@@ -141,7 +119,8 @@
         "allowed_subject_class": [
           "object_general"
         ],
-        "future_stem": "क्षयिष्य"
+        "past_stem": "अक्षय्",
+        "future_stem": "क्षयिष्य्"
       },
       {
         "root": "चर्",
@@ -151,8 +130,8 @@
           "human",
           "animal"
         ],
-        "past_stem": "अचर",
-        "future_stem": "चरिष्य"
+        "past_stem": "अचर्",
+        "future_stem": "चरिष्य्"
       },
       {
         "root": "जप्",
@@ -164,8 +143,8 @@
         "allowed_object_class": [
           "abstract"
         ],
-        "past_stem": "अजप",
-        "future_stem": "जपिष्य"
+        "past_stem": "अजप्",
+        "future_stem": "जपिष्य्"
       },
       {
         "root": "जल्प्",
@@ -174,7 +153,8 @@
         "allowed_subject_class": [
           "human"
         ],
-        "future_stem": "जल्पिष्य"
+        "past_stem": "अजल्प्",
+        "future_stem": "जल्पिष्य्"
       },
       {
         "root": "जय्",
@@ -187,7 +167,8 @@
           "human",
           "animal"
         ],
-        "future_stem": "जेष्य"
+        "past_stem": "अजय्",
+        "future_stem": "जेष्य्"
       },
       {
         "root": "जीव्",
@@ -197,7 +178,8 @@
           "human",
           "animal"
         ],
-        "future_stem": "जीविष्य"
+        "past_stem": "अजीव्",
+        "future_stem": "जीविष्य्"
       },
       {
         "root": "त्यज्",
@@ -210,8 +192,8 @@
           "object_general",
           "human"
         ],
-        "past_stem": "अत्यज",
-        "future_stem": "त्यक्ष्य"
+        "past_stem": "अत्यज्",
+        "future_stem": "त्यक्ष्य्"
       },
       {
         "root": "यच्छ्",
@@ -224,7 +206,8 @@
           "object_general",
           "human"
         ],
-        "future_stem": "यत्स्य"
+        "past_stem": "अयच्छ्",
+        "future_stem": "दास्य्"
       },
       {
         "root": "पश्य्",
@@ -238,8 +221,8 @@
           "object_see",
           "human"
         ],
-        "past_stem": "अपश्य",
-        "future_stem": "द्रक्ष्य"
+        "past_stem": "अपश्य्",
+        "future_stem": "द्रक्ष्य्"
       },
       {
         "root": "दंश्",
@@ -251,7 +234,8 @@
         "allowed_object_class": [
           "animal"
         ],
-        "future_stem": "दंशिष्य"
+        "past_stem": "अदंश्",
+        "future_stem": "दंशिष्य्"
       },
       {
         "root": "पत्",
@@ -263,48 +247,12 @@
           "human"
         ],
         "past_stem": "अपत्",
-        "future_stem": "पतिष्य"
+        "future_stem": "पतिष्य्"
       }
     ]
   },
   "4P": {
     "verbs": [
-      {
-        "root": "मन्",
-        "meaning": "to honor",
-        "requires_object": true,
-        "allowed_subject_class": [
-          "human"
-        ],
-        "allowed_object_class": [
-          "human"
-        ],
-        "past_stem": "अमन",
-        "future_stem": "मनिष्य"
-      },
-      {
-        "root": "इष्",
-        "meaning": "to desire",
-        "requires_object": true,
-        "allowed_subject_class": [
-          "human"
-        ],
-        "allowed_object_class": [
-          "object_general"
-        ],
-        "past_stem": "ऐष",
-        "future_stem": "इषिष्य"
-      },
-      {
-        "root": "तुष्",
-        "meaning": "to be satisfied",
-        "requires_object": false,
-        "allowed_subject_class": [
-          "human",
-          "animal"
-        ],
-        "future_stem": "तुषिष्य"
-      },
       {
         "root": "नश्",
         "meaning": "to perish",
@@ -314,7 +262,8 @@
           "human",
           "animal"
         ],
-        "future_stem": "नशिष्य"
+        "past_stem": "अनश्य्",
+        "future_stem": "नशिष्य्"
       },
       {
         "root": "नृत्",
@@ -323,33 +272,10 @@
         "allowed_subject_class": [
           "human"
         ],
-        "past_stem": "अनृत",
-        "future_stem": "नृतिष्य"
+        "past_stem": "अनृत्य्",
+        "future_stem": "नर्तिष्य्"
       },
-      {
-        "root": "पुष्",
-        "meaning": "to nourish",
-        "requires_object": true,
-        "allowed_subject_class": [
-          "human"
-        ],
-        "allowed_object_class": [
-          "object_general",
-          "human"
-        ],
-        "future_stem": "पुषिष्य"
-      },
-      {
-        "root": "भ्रम्",
-        "meaning": "to roam",
-        "requires_object": false,
-        "allowed_subject_class": [
-          "human",
-          "animal"
-        ],
-        "past_stem": "अभ्रम",
-        "future_stem": "भ्रमिष्य"
-      },
+      
       {
         "root": "श्रम्",
         "meaning": "to labor",
@@ -357,35 +283,27 @@
         "allowed_subject_class": [
           "human"
         ],
-        "past_stem": "अश्रम",
-        "future_stem": "श्रमिष्य"
+        "past_stem": "अश्रम्य्",
+        "future_stem": "श्रमिष्य्"
       }
     ]
   },
   "6P": {
     "verbs": [
       {
-        "root": "तृप्",
-        "meaning": "to be satisfied",
-        "requires_object": false,
+        "root": "लिख्",
+        "meaning": "to write",
+        "requires_object": true,
         "allowed_subject_class": [
           "human"
         ],
-        "future_stem": "तृपिष्य"
-      },
-      {
-        "root": "ग्रस्",
-        "meaning": "to swallow",
-        "requires_object": true,
-        "allowed_subject_class": [
-          "animal"
-        ],
         "allowed_object_class": [
-          "food_solid"
+          "object_write"
         ],
-        "past_stem": "अग्रस्",
-        "future_stem": "ग्रसिष्य"
+        "past_stem": "अलिख्",
+        "future_stem": "लिखिष्य्"
       },
+      
       {
         "root": "क्षिप्",
         "meaning": "to throw",
@@ -398,23 +316,46 @@
           "object_see",
           "weapon"
         ],
-        "past_stem": "अक्षिप",
-        "future_stem": "क्षिपिष्य"
+        "past_stem": "अक्षिप्",
+        "future_stem": "क्षेप्स्य्"
       }
     ]
   },
   "10P": {
     "verbs": [
       {
-        "root": "नृत्",
-        "meaning": "to dance",
+        "root": "चिन्त्",
+        "meaning": "to think / worry",
         "requires_object": false,
-        "allowed_subject_class": [
-          "human"
-        ],
-        "past_stem": "अनृत",
-        "future_stem": "नृतिष्य"
+        "allowed_subject_class": ["human"],
+        "past_stem": "अचिन्तय्",
+        "future_stem": "चिन्तयिष्य्"
+      },
+      {
+        "root": "शिक्ष्",
+        "meaning": "to teach / to learn",
+        "requires_object": false,
+        "allowed_subject_class": ["human"],
+        "past_stem": "अशिक्षय्",
+        "future_stem": "शिक्षयिष्य्"
+      },
+      {
+        "root": "कथ्",
+        "meaning": "to narrate / tell",
+        "requires_object": true,
+        "allowed_subject_class": ["human"],
+        "past_stem": "अकथय्",
+        "future_stem": "कथयिष्य्"
+      },
+      {
+        "root": "धार्",
+        "meaning": "to hold/wear",
+        "requires_object": true,
+        "allowed_subject_class": ["human"],
+        "past_stem": "अधारय्",
+        "future_stem": "धारयिष्य्"
       }
     ]
+
   }
 }
