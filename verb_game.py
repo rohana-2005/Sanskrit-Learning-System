@@ -2,7 +2,7 @@ import random
 import json
 from flask import Flask, jsonify
 from flask_cors import CORS
-from gen import conjugations, verbs
+from gen import conjugations, verbs  # Make sure gen.py has correct conjugations & verbs
 from declensions import asmad_declension, yushmad_declension
 
 # Load sentence data
@@ -17,16 +17,38 @@ def label(person, number):
     number_label = {"sg": "singular", "du": "dual", "pl": "plural"}
     return f"{person_label.get(person)} {number_label.get(number)}"
 
-def generate_distractors(correct_form, verb_root, verb_class):
+def generate_distractors(correct_form, verb_root, verb_class, verb_tense):
     all_forms = []
-   
-    for key, suffix in conjugations[verb_class].items():
-        form = verb_root + suffix.replace("A", "")
+    verb_data = conjugations.get(verb_tense, {}).get(verb_class, {})
+
+    # 🔍 Find the exact verb entry to get stem info
+    matching_verb = next(
+        (v for v in verbs if v["root"] == verb_root and v["verb_class"] == verb_class),
+        {"root": verb_root}
+    )
+
+    for key, suffix in verb_data.items():
+        person, number = key.split("_")
+
+        # 🧠 Choose correct stem
+        if verb_tense == "future":
+            stem = matching_verb.get("future_stem", verb_root)
+        elif verb_tense == "past":
+            stem = matching_verb.get("past_stem", verb_root)
+        else:
+            stem = verb_root
+
+        # ✂️ Drop halant (unless present 4P)
+        if not (verb_tense == "present" and verb_class == "4P"):
+            if stem.endswith("्"):
+                stem = stem[:-1]
+
+        form = stem + suffix.replace("A", "")
 
         if form != correct_form:
-            person, number = key.split("_")
             all_forms.append((form, person, number))
-    return random.sample(all_forms, 3)
+
+    return random.sample(all_forms, min(3, len(all_forms)))
 
 def replace_verb_with_blank(sentence_dict):
     sentence_text = sentence_dict["sentence"]
@@ -54,12 +76,13 @@ def get_game():
     verb_class = verb["class"]
     verb_meaning = verb.get("meaning", "N/A")
     correct_form = verb["form"]
+    verb_tense = sentence["tense"]  # ✅ Use sentence tense
 
     base_sentence = replace_verb_with_blank(sentence)
     key = f"{subj_person}_{subj_number}"
 
-    # Prepare options
-    distractors = generate_distractors(correct_form, verb_root, verb_class)
+    # ✅ Generate distractors using same tense
+    distractors = generate_distractors(correct_form, verb_root, verb_class, verb_tense)
     distractors.append((correct_form, subj_person, subj_number))
     random.shuffle(distractors)
     options = [opt for opt, _, _ in distractors]

@@ -344,6 +344,7 @@
         "meaning": "to narrate / tell",
         "requires_object": true,
         "allowed_subject_class": ["human"],
+        "allowed_object_class": ["human", "object_general"],
         "past_stem": "अकथय्",
         "future_stem": "कथयिष्य्"
       },
@@ -352,6 +353,7 @@
         "meaning": "to hold/wear",
         "requires_object": true,
         "allowed_subject_class": ["human"],
+        "allowed_object_class": ["object_general"],
         "past_stem": "अधारय्",
         "future_stem": "धारयिष्य्"
       }
